@@ -1,0 +1,346 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: oklch(0.98 0.001 200);
+  --foreground: oklch(0.12 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0 0);
+  --primary: oklch(0.58 0.16 200);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.01 200);
+  --secondary-foreground: oklch(0.12 0 0);
+  --muted: oklch(0.92 0.01 200);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.58 0.16 200);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.93 0.01 200);
+  --input: oklch(1 0 0);
+  --ring: oklch(0.58 0.16 200);
+  --chart-1: oklch(0.58 0.16 200);
+  --chart-2: oklch(0.64 0.16 200);
+  --chart-3: oklch(0.52 0.16 200);
+  --chart-4: oklch(0.71 0.16 200);
+  --chart-5: oklch(0.54 0.16 200);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.12 0 0);
+  --sidebar-primary: oklch(0.58 0.16 200);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.58 0.16 200);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.93 0.01 200);
+  --sidebar-ring: oklch(0.58 0.16 200);
+}
+
+.dark {
+  --background: oklch(0.12 0.01 200);
+  --foreground: oklch(0.96 0.01 200);
+  --card: oklch(0.17 0.01 200);
+  --card-foreground: oklch(0.96 0.01 200);
+  --popover: oklch(0.17 0.01 200);
+  --popover-foreground: oklch(0.96 0.01 200);
+  --primary: oklch(0.71 0.16 200);
+  --primary-foreground: oklch(0.96 0.01 200);
+  --secondary: oklch(0.25 0.01 200);
+  --secondary-foreground: oklch(0.96 0.01 200);
+  --muted: oklch(0.25 0.01 200);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.71 0.16 200);
+  --accent-foreground: oklch(0.96 0.01 200);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.96 0.01 200);
+  --border: oklch(0.25 0.01 200);
+  --input: oklch(0.2 0.01 200);
+  --ring: oklch(0.71 0.16 200);
+  --chart-1: oklch(0.71 0.16 200);
+  --chart-2: oklch(0.74 0.16 200);
+  --chart-3: oklch(0.64 0.16 200);
+  --chart-4: oklch(0.79 0.16 200);
+  --chart-5: oklch(0.67 0.16 200);
+  --sidebar: oklch(0.14 0.01 200);
+  --sidebar-foreground: oklch(0.96 0.01 200);
+  --sidebar-primary: oklch(0.71 0.16 200);
+  --sidebar-primary-foreground: oklch(0.96 0.01 200);
+  --sidebar-accent: oklch(0.71 0.16 200);
+  --sidebar-accent-foreground: oklch(0.96 0.01 200);
+  --sidebar-border: oklch(0.25 0.01 200);
+  --sidebar-ring: oklch(0.71 0.16 200);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(82, 123, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(82, 123, 255, 0);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  /* Cursor pointer for interactive elements */
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select,
+  textarea,
+  [role="button"],
+  [role="tab"],
+  [role="link"] {
+    cursor: pointer;
+  }
+
+  /* Consistent focus states with modern styling */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: var(--ring);
+  }
+
+  /* Enhanced smooth transitions */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    transition: all 300ms ease-out;
+  }
+
+  /* Card hover effect */
+  [role="region"],
+  .card {
+    transition: all 300ms;
+  }
+
+  /* Input focus enhancement */
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  textarea:focus,
+  select:focus {
+    --tw-ring-color: var(--primary);
+    --tw-ring-opacity: 0.2;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 500ms ease-out both;
+  }
+
+  .animate-slide-in {
+    animation: slideInLeft 500ms ease-out both;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 500ms ease-out both;
+  }
+
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift {
+    @apply hover:shadow-xl hover:-translate-y-1 transition-all duration-300;
+  }
+
+  .hover-glow {
+    @apply hover:shadow-lg transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    --tw-shadow-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+
+  .group-hover-scale {
+    @apply group-hover:scale-105 transition-transform duration-300;
+  }
+
+  .stagger-animation>* {
+    animation: fadeIn 500ms ease-out both;
+  }
+
+  .stagger-animation> :nth-child(1) {
+    animation-delay: 0ms;
+  }
+
+  .stagger-animation> :nth-child(2) {
+    animation-delay: 100ms;
+  }
+
+  .stagger-animation> :nth-child(3) {
+    animation-delay: 200ms;
+  }
+
+  .stagger-animation> :nth-child(4) {
+    animation-delay: 300ms;
+  }
+
+  .stagger-animation> :nth-child(n+5) {
+    animation-delay: 400ms;
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .smooth-shadow {
+    @apply shadow-lg;
+    --tw-shadow-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  /* Modern table styling */
+  table {
+    @apply w-full border-collapse;
+  }
+
+  table thead {
+    @apply border-b-2;
+    background-color: color-mix(in srgb, var(--primary) 5%, transparent);
+    border-bottom-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+
+  table thead th {
+    @apply px-4 py-3 text-left font-semibold text-foreground text-sm transition-colors duration-300;
+  }
+
+  table tbody tr {
+    @apply border-b transition-all duration-300 hover:shadow-sm;
+    border-bottom-color: color-mix(in srgb, var(--border) 50%, transparent);
+  }
+
+  table tbody tr:hover {
+    background-color: color-mix(in srgb, var(--primary) 5%, transparent);
+  }
+
+  table tbody tr:last-child {
+    @apply border-b-0;
+  }
+
+  table tbody td {
+    @apply px-4 py-3 text-sm;
+  }
+
+  /* Modern form styling */
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply block text-sm font-semibold text-foreground cursor-pointer transition-colors duration-300 hover:text-primary;
+  }
+
+  .form-description {
+    @apply text-xs text-muted-foreground mt-1;
+  }
+
+  /* Modern card styling */
+  .modern-card {
+    @apply rounded-2xl border bg-white/50 backdrop-blur-sm p-6 shadow-sm hover:shadow-lg transition-all duration-300;
+    border-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .modern-card:hover {
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  /* Smooth animations */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-down {
+    animation: slideDown 300ms ease-out;
+  }
+}
