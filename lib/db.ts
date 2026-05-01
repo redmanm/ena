@@ -3,6 +3,7 @@ import { Pool, type QueryResultRow } from 'pg';
 declare global {
   // eslint-disable-next-line no-var
   var __dbPool: Pool | undefined;
+  var __dbPoolUrl: string | undefined;
 }
 
 function getDatabaseUrl(): string {
@@ -14,12 +15,19 @@ function getDatabaseUrl(): string {
 }
 
 export function getPool(): Pool {
-  if (!global.__dbPool) {
+  const dbUrl = getDatabaseUrl();
+  
+  // If URL changed or pool doesn't exist, recreate it
+  if (!global.__dbPool || global.__dbPoolUrl !== dbUrl) {
+    if (global.__dbPool) {
+      global.__dbPool.end().catch(() => {});
+    }
     global.__dbPool = new Pool({
-      connectionString: getDatabaseUrl(),
+      connectionString: dbUrl,
       max: 10,
       idleTimeoutMillis: 30_000,
     });
+    global.__dbPoolUrl = dbUrl;
   }
   return global.__dbPool;
 }
