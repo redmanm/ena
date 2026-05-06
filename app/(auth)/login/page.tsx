@@ -3,6 +3,8 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
+import { useLanguage } from '@/lib/language-context';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { getPostLoginPath } from '@/lib/post-login';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +12,7 @@ import { Input } from '@/components/ui/input';
 export default function LoginPage() {
   const router = useRouter();
   const { user, login } = useAuth();
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -34,7 +37,7 @@ export default function LoginPage() {
       const nextPath = getPostLoginPath(nextUser);
       window.location.assign(nextPath);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError(err instanceof Error ? err.message : t('login.loginFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +105,7 @@ export default function LoginPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <span>Seamless Visitor Check-in</span>
+                <span>{t('dashboard.checkIns')}</span>
               </div>
 
               <div className="flex items-center gap-3 text-white/90 text-sm">
@@ -111,7 +114,7 @@ export default function LoginPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                   </svg>
                 </div>
-                <span>Real-time Notifications</span>
+                <span>{t('common.notifications')}</span>
               </div>
 
               <div className="flex items-center gap-3 text-white/90 text-sm">
@@ -120,7 +123,7 @@ export default function LoginPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
-                <span>Digital Visitor Logs</span>
+                <span>{t('auditTrail.title')}</span>
               </div>
             </div>
 
@@ -154,19 +157,23 @@ export default function LoginPage() {
           </div>
 
           <div className="max-w-sm mx-auto w-full relative z-10">
-            <div className="text-center mb-6">
+            {/* Language Switcher in top right corner on login */}
+            <div className="absolute top-4 right-4">
+              <LanguageSwitcher />
+            </div>
 
+            <div className="text-center mb-6">
               <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-1">
-                Welcome back
+                {t('login.title')}
               </h2>
-              <p className="text-gray-500 text-sm">Please enter your details to sign in</p>
+              <p className="text-gray-500 text-sm">{t('login.subtitle')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email Input */}
               <div>
                 <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1">
-                  Email Address
+                  {t('login.email')}
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
@@ -190,7 +197,7 @@ export default function LoginPage() {
               {/* Password Input */}
               <div>
                 <label htmlFor="password" className="block text-xs font-semibold text-gray-700 mb-1">
-                  Password
+                  {t('login.password')}
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
@@ -249,10 +256,10 @@ export default function LoginPage() {
                 {isLoading ? (
                   <div className="flex items-center justify-center gap-2">
                     <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Signing in...
+                    {t('login.signingIn')}
                   </div>
                 ) : (
-                  'Sign in'
+                  t('login.loginButton')
                 )}
               </Button>
 

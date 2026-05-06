@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -138,6 +140,14 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  html[lang="am"] {
+    font-family: 'Noto Serif Ethiopic', serif;
+  }
+
+  html[lang="am"] body {
+    font-family: 'Noto Serif Ethiopic', serif;
   }
 
   body {

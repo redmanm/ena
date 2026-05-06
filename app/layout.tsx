@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AuthProvider } from '@/lib/auth-context'
 import { VisitorProvider } from '@/lib/visitor-context'
+import { LanguageProvider } from '@/lib/language-context'
 import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 
@@ -39,11 +40,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning className="bg-background font-sans antialiased text-foreground">
-        <AuthProvider>
-          <VisitorProvider>
-            {children}
-          </VisitorProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <VisitorProvider>
+              {children}
+            </VisitorProvider>
+          </AuthProvider>
+        </LanguageProvider>
         <Toaster />
       </body>
     </html>

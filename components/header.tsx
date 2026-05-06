@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth-context';
+import { useLanguage } from '@/lib/language-context';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +29,7 @@ interface HeaderProps {
 
 export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
   const { user, logout } = useAuth();
+  const { t } = useLanguage();
   const router = useRouter();
   const [currentDate, setCurrentDate] = useState('');
   const [currentTime, setCurrentTime] = useState('');
@@ -127,13 +130,13 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
 
           {/* Title - hidden on very small screens, shows only logo */}
           <div className="hidden sm:block">
-            <div className="text-base font-bold text-white tracking-wide">ENA Visitor Management System</div>
-            <div className="text-xs text-white/80 hidden lg:block">Secure Access Control</div>
+            <div className="text-base font-bold text-white tracking-wide">{t('header.title')}</div>
+            <div className="text-xs text-white/80 hidden lg:block">{t('header.subtitle')}</div>
           </div>
 
           {/* Mobile title - only visible on very small screens */}
           <div className="block sm:hidden">
-            <div className="text-sm font-bold text-white tracking-wide">ENA VMS</div>
+            <div className="text-sm font-bold text-white tracking-wide">{t('header.mobileTitle')}</div>
           </div>
         </div>
 
@@ -156,6 +159,9 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
 
         {/* Right section */}
         <div className="flex items-center gap-2 lg:gap-4">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+
           {/* Notifications - Only for Managers */}
           {showNotificationIcon && (
             <div className="relative">
@@ -181,14 +187,14 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
                     <div className="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gradient-to-r from-gray-50 to-white rounded-t-xl">
                       <div className="flex items-center gap-2">
                         <Bell className="w-4 h-4 text-[#158798]" />
-                        <h3 className="font-semibold text-gray-800">Notifications</h3>
+                        <h3 className="font-semibold text-gray-800">{t('common.notifications')}</h3>
                       </div>
                       {notifications.length > 0 && (
                         <button
                           onClick={markNotificationsRead}
                           className="text-xs text-[#158798] hover:text-[#0e6a78] font-medium transition-colors"
                         >
-                          Mark all read
+                          {t('common.markAllRead')}
                         </button>
                       )}
                     </div>
@@ -198,8 +204,8 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
                           <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
                             <Bell className="w-6 h-6 text-gray-400" />
                           </div>
-                          <p className="text-sm text-gray-500">No new notifications</p>
-                          <p className="text-xs text-gray-400 mt-1">You're all caught up!</p>
+                          <p className="text-sm text-gray-500">{t('common.noNewNotifications')}</p>
+                          <p className="text-xs text-gray-400 mt-1">{t('common.youreAllCaughtUp')}</p>
                         </div>
                       ) : (
                         notifications.map((n, idx) => (
@@ -268,7 +274,7 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
               <DropdownMenuItem asChild>
                 <Link href="/profile" className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-gray-50 cursor-pointer rounded-lg transition-colors my-1">
                   <User className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm font-medium">My Profile</span>
+                  <span className="text-sm font-medium">{t('common.myProfile')}</span>
                 </Link>
               </DropdownMenuItem>
 
@@ -282,7 +288,7 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 cursor-pointer rounded-lg transition-colors my-1"
                 >
                   <LogOut className="w-4 h-4" />
-                  <span className="text-sm font-medium">Logout</span>
+                  <span className="text-sm font-medium">{t('common.logout')}</span>
                 </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
